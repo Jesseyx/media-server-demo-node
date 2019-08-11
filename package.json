@@ -4,7 +4,8 @@
   "description": "Demo application for the Medooze Media Server for Node.js",
   "main": "index.js",
   "scripts": {
-    "install": "openssl req  -nodes -new -x509  -keyout server.key -out server.cert -subj \"/CN=localhost\""
+    "openssl": "openssl req  -nodes -new -x509  -keyout server.key -out server.cert -subj \"/CN=localhost\"",
+    "serve": "node $NODE_DEBUG_OPTION index.js \"127.0.0.1\""
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/murillo128/media-server-demo-node#readme",
   "dependencies": {
+    "medooze-media-server": "^0.69.0",
     "semantic-sdp": "^3.9.0",
     "websocket": "^1.0.26"
   }

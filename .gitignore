@@ -38,3 +38,9 @@ jspm_packages
 /nbproject/private/
 /recordings/*.mp4
 /recordings/*.pcap
+
+# extra
+.idea
+.DS_Store
+server.cert
+server.key

@@ -10,7 +10,8 @@ function addVideoForStream(stream,muted)
 	//Set same id
 	video.id = stream.id;
 	//Set src stream
-	video.src = URL.createObjectURL(stream);
+	// video.src = URL.createObjectURL(stream);
+	video.srcObject = stream;
 	//Set other properties
 	video.autoplay = true;
 	video.muted = muted;
@@ -43,22 +44,23 @@ function connect()
 		pc = new webkitRTCPeerConnection(null);
 	
 	var ws = new WebSocket(url,"broadcast");
-	
+
 	pc.onaddstream = function(event) {
 		var prev = 0;
 		console.debug("onAddStream",event);
 		//Play it
 		addVideoForStream(event.stream);
 
-			
+
 	};
 	
 	pc.onremovestream = function(event) {
+
 		console.debug("onRemoveStream",event);
 		//Play it
 		removeVideoForStream(event.stream);
 	};
-	
+
 	ws.onopen = function(){
 		console.log("opened");
 		
