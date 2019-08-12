@@ -22,5 +22,8 @@ RUN npm run openssl
 # Bundle app source
 COPY . .
 
-EXPOSE 8000
+# 10000-10050 UDP for TURN/STUN server
+# 5004 5005 UDP for rtp publisher
+# 8000 TCP for node server
+EXPOSE 10000-10050 5004 5005 8000
 CMD [ "npm", "run", "serve" ]

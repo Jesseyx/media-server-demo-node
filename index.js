@@ -7,11 +7,14 @@ const WebSocketServer = require ('websocket').server;
 //Get the Medooze Media Server interface
 const MediaServer = require("medooze-media-server");
 
-//Check 
+//Check
 if (process.argv.length!=3)
 	 throw new Error("Missing IP address\nUsage: node index.js <ip>");
 //Get ip
 const ip = process.argv[2];
+
+//Restrict port range, need to be set first
+MediaServer.setPortRange(10000,10050);
 
 //Create UDP server endpoint
 const endpoint = MediaServer.createEndpoint(ip);
@@ -26,9 +29,6 @@ const options = {
 //Enable debug
 MediaServer.enableDebug(false);
 MediaServer.enableUltraDebug(false);
-
-//Restrict port range
-MediaServer.setPortRange(10000,20000);
 
 // maps file extention to MIME typere
 const map = {
@@ -102,7 +102,7 @@ const handlers = {
 wsServer.on ('request', (request) => {
 	//Get protocol for demo
 	var protocol = request.requestedProtocols[0];
-	
+
 	console.log("-Got request for: " + protocol);
 	//If nor found
 	if (!handlers.hasOwnProperty (protocol))

@@ -32,5 +32,12 @@ To run this demo just open `https://ip:8000/broadcast/` with Chrome or Firefox a
 To run this demo just open `https://ip:8000/simulcast/` with Chrome or Firefox and follow instructions.
 
 
+## Docker build
+see `https://github.com/Piasy/WebRTC-Docker`
 
-
+```
+# build
+docker build -t yourname/media-server-demo .
+# run
+docker run -p 10000-10050:10000-10050/udp -p 5004-5005:5004-5005/udp -p 8000:8000 -it --name media-server-demo yourname/media-server-demo
+```
