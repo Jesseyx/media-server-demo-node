@@ -31,8 +31,8 @@ function removeVideoForStream(stream)
 
 var sdp;
 var pc;
-	
-function connect() 
+
+function connect()
 {
 
 	if (window.RTCPeerConnection)
@@ -40,9 +40,9 @@ function connect()
 			bundlePolicy: "max-bundle",
 			rtcpMuxPolicy : "require"
 		});
-	else 
+	else
 		pc = new webkitRTCPeerConnection(null);
-	
+
 	var ws = new WebSocket(url,"broadcast");
 
 	pc.onaddstream = function(event) {
@@ -53,7 +53,7 @@ function connect()
 
 
 	};
-	
+
 	pc.onremovestream = function(event) {
 
 		console.debug("onRemoveStream",event);
@@ -63,9 +63,10 @@ function connect()
 
 	ws.onopen = function(){
 		console.log("opened");
-		
+
 	//Create new offer
 	pc.createOffer({
+			offerToReceiveAudio: true,
 			offerToReceiveVideo: true
 		})
 		.then(function(offer){
@@ -85,13 +86,13 @@ function connect()
 			console.error("Error",error);
 		});
 	};
-	
+
 	ws.onmessage = function(event){
 		console.log(event);
-		
+
 		//Get protocol message
 		const msg = JSON.parse(event.data);
-		
+
 		console.log(msg.answer);
 		pc.setRemoteDescription(new RTCSessionDescription({
 				type:'answer',

@@ -23,7 +23,8 @@ RUN npm run openssl
 COPY . .
 
 # 10000-10050 UDP for TURN/STUN server
-# 5004 5005 UDP for rtp publisher
+# 5004-5005 UDP for rtp video publisher
+# 6004-6005 UDP for rtp audio publisher
 # 8000 TCP for node server
-EXPOSE 10000-10050 5004 5005 8000
+EXPOSE 10000-10050 5004-5005 6004-6005 8000
 CMD [ "npm", "run", "serve" ]

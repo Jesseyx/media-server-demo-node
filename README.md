@@ -37,9 +37,9 @@ see `https://github.com/Piasy/WebRTC-Docker`
 
 ```
 # build
-docker build -t yourname/media-server-demo .
+docker build -t jesseyx/media-server-demo .
 # run
-docker run -p 10000-10050:10000-10050/udp -p 5004-5005:5004-5005/udp -p 8000:8000 -it --name media-server-demo yourname/media-server-demo
+docker run -p 10000-10050:10000-10050/udp -p 5004-5005:5004-5005/udp -p 6004-6005:6004-6005/udp -p 8000:8000 -it jesseyx/media-server-demo
 ```
 
 ## Push stream
@@ -60,12 +60,13 @@ vlc ./toystory.mp4 --sout "#duplicate{dst=rtp{dst=127.0.0.1,port=5004,sap,name=s
 # -payload_type       <int>        E........ Specify RTP payload type (from -1 to 127) (default -1)
 ffmpeg -re -fflags nobuffer -i ./toystory.mp4 \
 -an -vcodec h264 -profile:v baseline -f rtp -payload_type 96 rtp://127.0.0.1:5004 \
--vn -acodec copy -f rtp rtp://127.0.0.1:5005
+-vn -strict -2 -acodec opus -f rtp -payload_type 111 rtp://127.0.0.1:6004
 
 # ffmpeg in cmd
+# notice: webrtc now not support aac
 ffmpeg -re -fflags nobuffer -i ./toystory.mp4 ^
 -an -vcodec h264 -profile:v baseline -f rtp -payload_type 96 rtp://127.0.0.1:5004 ^
--vn -acodec copy -f rtp rtp://127.0.0.1:5005
+-vn -strict -2 -acodec opus -f rtp -payload_type 111 rtp://127.0.0.1:6004
 ```
 
 ### Play RTP
@@ -83,3 +84,5 @@ ffprobe -show_streams -count_frames -pretty <filename>
 1. [[FFmpeg-user] -c:v or -vcodec copy or -codec:v](https://lists.ffmpeg.org/pipermail/ffmpeg-user/2017-February/035335.html)
 2. [Browser-based non-webrtc webcam capture](https://video.stackexchange.com/questions/18131/browser-based-non-webrtc-webcam-capture/19543#19543)
 
+## TODO
+音视频同步
