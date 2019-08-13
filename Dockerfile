@@ -1,7 +1,7 @@
 FROM gcc:7
 
 # install node
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -\
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - \
     && apt-get install -y nodejs
 
 # Create app directory
